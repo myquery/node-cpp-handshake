@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload File</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      display: grid;
+      place-items: center;
+      height: 100%;
+      width: 100%;
+      
+    }
+    #fileContent {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      background-color: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    #uploadBody{
+      width: 40%;
+      background-color: #f4f4f4;
+      padding: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div id="uploadBody">
+    <h1>Upload File</h1>
+    <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="POST">
+      <label for="fileInput">Choose a file:</label>
+      <input type="file" id="fileInput" name="file" accept=".txt,.json,.base64" required />
+      <button type="submit">Upload</button>
+    </form>
+    <div id="fileContent"></div>
+
+  </div>
+
+
+  <script>
+    const uploadForm = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('fileInput');
+    const fileContent = document.getElementById('fileContent');
+
+    // Handle form submission
+    uploadForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent default form submission
+
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please select a file.');
+        return;
+      }
+
+      fileContent.textContent = `File selected: ${file.name}`;
+      
+      // Form submission will happen automatically, no need to manually fetch data
+      uploadForm.submit();
+    });
+  </script>
+</body>
+</html>
